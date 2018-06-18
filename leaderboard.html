@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+
+  <title>Leaderboard</title>
+
+  <link rel="stylesheet" type="text/css" href="leaderboard.css">
+
+</head>
+<body>
+
+  <div class="js-leaderboard"></div>
+
+  <template id="tpl-leaderboard--empty">
+    <div class="c-leaderboard--empty">
+      <h2 class="c-leaderboard--empty__title">All-Time Tournament Earnings</h2>
+    </div>
+  </template>
+
+  <template id="tpl-leaderboard">
+    <div class="c-leaderboard">
+      <h2 class="c-leaderboard__title">All-Time Tournament Earnings</h2>
+      <table>
+        <thead>
+        <tr>
+          <th colspan="2">Player</th>
+          <th>Winnings</th>
+          <th>Native Of</th>
+        </tr>
+        </thead>
+        <tbody class="js-leaderboard__entries">
+
+        </tbody>
+      </table>
+    </div>
+  </template>
+
+  <template id="tpl-leaderboard__entry">
+    <tr class="c-leaderboard__entry">
+      <td class="js-leaderboard-entry__index c-leaderboard-entry__index"></td>
+      <td class="c-leaderboard-entry__player">
+        <img class="js-leaderboard-entry__player-icon c-leaderboard-entry__player-icon">
+        <span class="js-leaderboard-entry__player-name c-leaderboard-entry__player-name"></span>
+      </td>
+      <td class="js-leaderboard-entry__winnings c-leaderboard-entry__winnings"></td>
+      <td class="c-leaderboard-entry__native-of">
+        <span class="js-leaderboard-entry__flag c-leaderboard-entry__flag"></span>
+        <span class="js-leaderboard-entry__country c-leaderboard-entry__country"></span>
+      </td>
+    </tr>
+  </template>
+
+  <script src="leaderboard.js"></script>
+
+</body>
+</html>
