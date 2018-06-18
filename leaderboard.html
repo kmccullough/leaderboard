@@ -16,6 +16,7 @@
   <template id="tpl-leaderboard--empty">
     <div class="c-leaderboard--empty">
       <h2 class="c-leaderboard--empty__title">No Tournament Results</h2>
+      <button class="c-leaderboard--empty__add">Add</button>
     </div>
   </template>
 
@@ -44,6 +45,7 @@
           <th colspan="2">Player</th>
           <th>Winnings</th>
           <th>Native Of</th>
+          <th class="c-leaderboard__header--actions">Actions</th>
         </tr>
         </thead>
         <tbody class="js-leaderboard__entries">
@@ -64,6 +66,18 @@
       <td class="c-leaderboard-entry__native-of">
         <img class="js-leaderboard-entry__flag c-leaderboard-entry__flag">
         <span class="js-leaderboard-entry__country c-leaderboard-entry__country"></span>
+      </td>
+      <td class="c-leaderboard__actions">
+        <button class="js-leaderboard-actions__remove c-leaderboard-actions__remove">Remove</button>
+        <button class="js-leaderboard-actions__edit c-leaderboard-actions__edit">Edit</button>
+      </td>
+    </tr>
+  </template>
+
+  <template id="tpl-leaderboard__bottom-actions">
+    <tr class="c-leaderboard__actions">
+      <td colspan="5">
+        <button class="js-leaderboard__add c-leaderboard__add">Add</button>
       </td>
     </tr>
   </template>

@@ -16,24 +16,28 @@ th {
   background-color: lightgray;
   font-weight: normal;
   padding: .5em .5em;
+  white-space: nowrap;
 }
 
 td {
   border-bottom: 1px solid lightgray;
   padding: .25em .5em;
+  white-space: nowrap;
 }
 
 img, td {
   vertical-align: middle;
 }
 
-.c-leaderboard {
+.c-leaderboard,
+.c-leaderboard--empty {
   width: 100%;
   max-width: 30em;
   margin: auto;
 }
 
-.c-leaderboard__title {
+.c-leaderboard__title,
+.c-leaderboard--empty__title {
   font-size: 1.5em;
   text-align: center;
 }
@@ -66,15 +70,47 @@ img, td {
   text-align: left;
 }
 
+.c-leaderboard__header--actions {
+  color: #667080;
+}
+
+.c-leaderboard-entry__index {
+  width: 1%;
+}
+
 .c-leaderboard-entry__player-icon {
-  margin-right: .5em;
+}
+
+.c-leaderboard-entry__player {
+  position: relative;
+  overflow: hidden;
+  width: 50%;
 }
 
 .c-leaderboard-entry__player-name {
+  /* Most of this is just to get ellipsis overflow */
+  position: absolute;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  padding-left: 3.5em;
+  box-sizing: border-box;
   text-overflow: ellipsis;
+  left: 0;
+  top: 50%;
+  transform: translateY(-25%);
 }
 
 .c-leaderboard-entry__player-name,
 .c-leaderboard-entry__country {
   color: brown;
+}
+
+.c-leaderboard__actions td {
+  border: 0;
+}
+
+.c-leaderboard__add {
+  width: 100%;
+  text-align: center;
 }

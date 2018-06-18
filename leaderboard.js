@@ -84,6 +84,18 @@
     };
   }
 
+  function addLeaderboardEntry() {
+    console.log('addLeaderboardEntry');
+  }
+
+  function removeLeaderboardEntry(index) {
+    console.log('removeLeaderboardEntry', index);
+  }
+
+  function editLeaderboardEntry(index) {
+    console.log('editLeaderboardEntry', index);
+  }
+
   function getLeaderboardEntryNode(entry) {
     var entryTpl = document.querySelector('#tpl-leaderboard__entry');
     var entryEl = document.importNode(entryTpl.content, true);
@@ -91,7 +103,7 @@
 
     // Leaderboard Index
     fieldEl = entryEl.querySelector('.js-leaderboard-entry__index');
-    fieldEl.textContent = entry.index + '.';
+    fieldEl.textContent = (entry.index + 1) + '.';
 
     // Player Icon
     fieldEl = entryEl.querySelector('.js-leaderboard-entry__player-icon');
@@ -120,6 +132,16 @@
     if (entry.isMedian) {
       row.classList.add('c-leaderboard__entry--median');
     }
+
+    entryEl.querySelector('.js-leaderboard-actions__remove')
+      .addEventListener('click', function () {
+        removeLeaderboardEntry(entry.index)
+      });
+
+    entryEl.querySelector('.js-leaderboard-actions__edit')
+      .addEventListener('click', function () {
+        editLeaderboardEntry(entry.index)
+      });
 
     return entryEl;
   }
@@ -174,11 +196,17 @@
 
       sortedLeaderboard
         .forEach(function (entry, index) {
-            entry.index = index + 1;
+            entry.index = index;
             entry.isClosestToMean = closestToMean.index === index;
             entry.isMedian = median.indices.indexOf(index) >= 0;
-            entriesEl.appendChild(getLeaderboardEntryNode(entry));
+          entriesEl.appendChild(getLeaderboardEntryNode(entry));
         });
+
+      var actionsTpl = document.querySelector('#tpl-leaderboard__bottom-actions');
+      var actionsEl = document.importNode(actionsTpl.content, true);
+      actionsEl.querySelector('.js-leaderboard__add')
+        .addEventListener('click', addLeaderboardEntry);
+      entriesEl.appendChild(actionsEl)
 
     } // Tournament Results
 
