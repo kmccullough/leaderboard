@@ -59,6 +59,22 @@
     return '$' + value;
   }
 
+  function meanAverageWinnings(entries, total) {
+    return total / entries.length;
+  }
+
+  // Expects entries to already be sorted
+  function medianAverageWinnings(sortedEntries) {
+    var median;
+    if (sortedEntries.length % 2) {
+      median = sortedEntries[(sortedEntries.length + 1) / 2].winnings;
+    } else {
+      var half = sortedEntries.length / 2;
+      median = (sortedEntries[half].winnings + sortedEntries[half + 1].winnings) / 2
+    }
+    return median;
+  }
+
   function getLeaderboardEntryNode(entry) {
     var entryTpl = document.querySelector('#tpl-leaderboard__entry');
     var entryEl = document.importNode(entryTpl.content, true);
@@ -110,12 +126,28 @@
 
       var entriesEl = leaderboardEl.querySelector('.js-leaderboard__entries');
 
-      leaderboard
-        // TODO: sort leaderboard, extract median and mean
+      var total = 0;
+
+      var sortedLeaderboard = leaderboard.sort(function (a, b) {
+        return a.winnings > b.winnings ? -1 : a.winnings < b.winnings ? 1 : 0;
+      });
+
+      sortedLeaderboard
         .forEach(function (entry, index) {
+          total += entry.winnings;
           entry.index = index + 1;
           entriesEl.appendChild(getLeaderboardEntryNode(entry));
         });
+
+      var fieldEl;
+
+      // Mean Average
+      fieldEl = leaderboardEl.querySelector('.js-leaderboard__mean');
+      fieldEl.textContent = dollarFilter(meanAverageWinnings(leaderboard, total));
+
+      // Median Average
+      fieldEl = leaderboardEl.querySelector('.js-leaderboard__median');
+      fieldEl.textContent = dollarFilter(medianAverageWinnings(sortedLeaderboard));
 
     } // Tournament Results
 
