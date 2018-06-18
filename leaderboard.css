@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', 'Open Sans', sans-serif;
   font-size: 20px;
 }
-body * {
+body > * {
   text-align: left;
 }
 
@@ -78,7 +78,10 @@ img, td {
   width: 1%;
 }
 
-.c-leaderboard-entry__player-icon {
+.c-leaderboard-entry__player-icon,
+.c-leaderboard-entry__flag {
+  max-width: 48px;
+  max-height: 48px;
 }
 
 .c-leaderboard-entry__player {
@@ -106,6 +109,10 @@ img, td {
   color: brown;
 }
 
+.c-leaderboard-entry__country {
+  text-transform: uppercase;
+}
+
 .c-leaderboard__actions td {
   border: 0;
 }
@@ -113,4 +120,62 @@ img, td {
 .c-leaderboard__add {
   width: 100%;
   text-align: center;
+}
+
+.c-modal:before,
+.c-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.c-modal:before {
+  content: '';
+  background-color: black;
+  opacity: .5;  z-index: 1000;
+
+}
+
+.c-modal {
+}
+
+.c-modal > * {
+  margin: auto;
+  margin-top: 3em;
+  z-index: 1001;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.c-leaderboard-edit {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  padding: 2em;
+  width: 20em;
+  max-width: 95%;
+}
+
+.c-leaderboard-edit__title {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+}
+
+label input {
+  float: right;
+  width: 50%;
+}
+
+.c-leaderboard-edit__actions {
+  margin-top: 1em;
+  text-align: right;
+}
+
+.c-leaderboard-edit__actions > * {
+  text-align: left;
 }

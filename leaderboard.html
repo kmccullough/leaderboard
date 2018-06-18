@@ -13,6 +13,8 @@
 
   <div class="js-leaderboard"></div>
 
+  <div class="js-modal"></div>
+
   <template id="tpl-leaderboard--empty">
     <div class="c-leaderboard--empty">
       <h2 class="c-leaderboard--empty__title">No Tournament Results</h2>
@@ -80,6 +82,34 @@
         <button class="js-leaderboard__add c-leaderboard__add">Add</button>
       </td>
     </tr>
+  </template>
+
+  <template id="tpl-leaderboard-edit">
+    <div class="js-modal c-modal">
+      <div class="c-leaderboard-edit">
+        <h2 class="js-leaderboard-edit__title c-leaderboard-edit__title"></h2>
+        <label>
+          Icon:
+          <input type="text" class="js-leaderboard-edit__icon c-leaderboard-edit__icon">
+        </label>
+        <label>
+          Name:
+          <input type="text" class="js-leaderboard-edit__name c-leaderboard-edit__name">
+        </label>
+        <label>
+          Winnings:
+          <input type="text" class="js-leaderboard-edit__winnings c-leaderboard-edit__winnings">
+        </label>
+        <label>
+          Native Of:
+          <input type="text" class="js-leaderboard-edit__nat c-leaderboard-edit__nat">
+        </label>
+        <div class="c-leaderboard-edit__actions">
+          <button class="js-leaderboard-edit__cancel c-leaderboard__cancel">Cancel</button>
+          <button class="js-leaderboard-edit__submit c-leaderboard__submit">Submit</button>
+        </div>
+      </div>
+    </div>
   </template>
 
   <script src="leaderboard.js"></script>

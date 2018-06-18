@@ -12,6 +12,10 @@
     });
   }
 
+  function isNumber(value) {
+    return ('' + value) === ('' + +value);
+  }
+
   function getRandomData() {
     var minWinnings = Math.pow(10, 5);
     var maxWinnings = Math.pow(10, 8);
@@ -49,9 +53,12 @@
   function dollarFilter(value) {
     value = Math.floor(value);
     var v = '' + value;
-    if (value >= Math.pow(10, 5)) {
-      value = (v.length > 6 ? v.substring(0, v.length - 6) : '0')
-        + '.' + v.substr(v.length - 6, 1) + 'M';
+    if (value >= Math.pow(10, 8)) {
+      value = (v.length > 9 ? v.substring(0, v.length - 9) : '0')
+        + '.' + v.substr(v.length - 9, 1) + 'B';
+    } else if (value >= Math.pow(10, 5)) {
+        value = (v.length > 6 ? v.substring(0, v.length - 6) : '0')
+          + '.' + v.substr(v.length - 6, 1) + 'M';
     } else if (value >= Math.pow(10, 3)) {
       value = v.substring(0, v.length - 3)
         + '.' + v.substr(v.length - 3, 1) + 'K';
@@ -85,7 +92,7 @@
   }
 
   function addLeaderboardEntry() {
-    console.log('addLeaderboardEntry');
+    editLeaderboardEntry();
   }
 
   function removeLeaderboardEntry(index) {
@@ -98,7 +105,82 @@
   }
 
   function editLeaderboardEntry(index) {
-    console.log('editLeaderboardEntry', index);
+    var isAdd = index === undefined || index === null
+      || index < 0 || index > leaderboard.length;
+    var modalEl = document.querySelector('.js-modal');
+    var editTpl = document.querySelector('#tpl-leaderboard-edit');
+    var editEl = document.importNode(editTpl.content, true);
+    var modalNode = editEl.querySelector('.js-modal');
+
+    var titleEl = editEl.querySelector('.js-leaderboard-edit__title');
+
+    if (isAdd) {
+      titleEl.textContent = 'Add Entry';
+    } else {
+      var entry = leaderboard[index];
+      titleEl.textContent = 'Edit Entry';
+
+      var fieldEl;
+
+      // Player Icon
+      fieldEl = editEl.querySelector('.js-leaderboard-edit__icon');
+      fieldEl.value = entry.icon;
+
+      // Player Name
+      fieldEl = editEl.querySelector('.js-leaderboard-edit__name');
+      fieldEl.value = '' + entry.name;
+
+      // Player Winnings
+      fieldEl = editEl.querySelector('.js-leaderboard-edit__winnings');
+      fieldEl.value = entry.winnings;
+
+      // Player Nationality
+      fieldEl = editEl.querySelector('.js-leaderboard-edit__nat');
+      fieldEl.value = entry.nativeOf;
+    }
+
+    var cancelEl = editEl.querySelector('.js-leaderboard-edit__cancel');
+    cancelEl.addEventListener('click', function () {
+      modalEl.removeChild(modalNode);
+    });
+
+    var submitEl = editEl.querySelector('.js-leaderboard-edit__submit');
+    submitEl.addEventListener('click', function () {
+
+      var fieldEl;
+      var editedEntry = {};
+
+      // Player Icon
+      fieldEl = modalNode.querySelector('.js-leaderboard-edit__icon');
+      editedEntry.icon = fieldEl.value;
+
+      // Player Name
+      fieldEl = modalNode.querySelector('.js-leaderboard-edit__name');
+      editedEntry.name = fieldEl.value;
+
+      // Player Winnings
+      fieldEl = modalNode.querySelector('.js-leaderboard-edit__winnings');
+      if (!isNumber(fieldEl.value)) {
+        alert('Expected winnings to be a number');
+        return;
+      }
+      editedEntry.winnings = +fieldEl.value;
+
+      // Player Nationality
+      fieldEl = modalNode.querySelector('.js-leaderboard-edit__nat');
+      editedEntry.nativeOf = fieldEl.value;
+
+      if (isAdd) {
+        leaderboard.push(editedEntry);
+      } else {
+        leaderboard[index] = editedEntry;
+      }
+      modalEl.removeChild(modalNode);
+      updateLeaderboard();
+
+    });
+
+    modalEl.appendChild(editEl);
   }
 
   function getLeaderboardEntryNode(entry) {
@@ -112,7 +194,7 @@
 
     // Player Icon
     fieldEl = entryEl.querySelector('.js-leaderboard-entry__player-icon');
-    fieldEl.src = '' + entry.icon;
+    fieldEl.src = entry.icon;
 
     // Player Name
     fieldEl = entryEl.querySelector('.js-leaderboard-entry__player-name');
@@ -170,7 +252,7 @@
 
       var entriesEl = leaderboardEl.querySelector('.js-leaderboard__entries');
 
-      var sortedLeaderboard = leaderboard.sort(function (a, b) {
+      leaderboard = leaderboard.sort(function (a, b) {
         return a.winnings > b.winnings ? -1 : a.winnings < b.winnings ? 1 : 0;
       });
 
@@ -182,13 +264,13 @@
       fieldEl.textContent = dollarFilter(mean);
 
       // Median Average
-      var median = medianAverageWinnings(sortedLeaderboard);
+      var median = medianAverageWinnings(leaderboard);
       fieldEl = leaderboardEl.querySelector('.js-leaderboard__median');
       fieldEl.textContent = dollarFilter(median.value);
 
       var closestToMean;
 
-      sortedLeaderboard
+      leaderboard
         .forEach(function (entry, index) {
           var diff = Math.abs(entry.winnings - mean);
           if (!closestToMean || diff < closestToMean.diff) {
@@ -199,7 +281,7 @@
           }
         });
 
-      sortedLeaderboard
+      leaderboard
         .forEach(function (entry, index) {
             entry.index = index;
             entry.isClosestToMean = closestToMean.index === index;
