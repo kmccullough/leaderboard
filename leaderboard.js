@@ -89,7 +89,12 @@
   }
 
   function removeLeaderboardEntry(index) {
-    console.log('removeLeaderboardEntry', index);
+    if (index >= 0 && index < leaderboard.length
+      && confirm('Delete entry for ' + leaderboard[index].name + '?')
+    ) {
+      leaderboard.splice(index, 1);
+      updateLeaderboard();
+    }
   }
 
   function editLeaderboardEntry(index) {
