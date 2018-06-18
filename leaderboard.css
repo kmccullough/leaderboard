@@ -1,0 +1,80 @@
+body {
+  text-align: center;
+  font-family: 'Roboto', 'Open Sans', sans-serif;
+  font-size: 20px;
+}
+body * {
+  text-align: left;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: lightgray;
+  font-weight: normal;
+  padding: .5em .5em;
+}
+
+td {
+  border-bottom: 1px solid lightgray;
+  padding: .25em .5em;
+}
+
+img, td {
+  vertical-align: middle;
+}
+
+.c-leaderboard {
+  width: 100%;
+  max-width: 30em;
+  margin: auto;
+}
+
+.c-leaderboard__title {
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.c-leaderboard__averages {
+  margin-bottom: .5em;
+}
+
+.c-leaderboard__averages th,
+.c-leaderboard__averages td {
+  text-align: center;
+}
+
+.c-leaderboard__mean,
+.c-leaderboard__entry--mean {
+  background-color: burlywood;
+}
+
+.c-leaderboard__median,
+.c-leaderboard__entry--median {
+  background-color: aquamarine;
+}
+
+.c-leaderboard__mean.c-leaderboard__median,
+.c-leaderboard__entry--mean.c-leaderboard__entry--median {
+  background-color: #bdd1a2;
+}
+
+.c-leaderboard__entries th {
+  text-align: left;
+}
+
+.c-leaderboard-entry__player-icon {
+  margin-right: .5em;
+}
+
+.c-leaderboard-entry__player-name {
+  text-overflow: ellipsis;
+}
+
+.c-leaderboard-entry__player-name,
+.c-leaderboard-entry__country {
+  color: brown;
+}

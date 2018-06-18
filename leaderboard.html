@@ -22,21 +22,23 @@
   <template id="tpl-leaderboard">
     <div class="c-leaderboard">
       <h2 class="c-leaderboard__title">All-Time Tournament Earnings</h2>
-      <table>
+      <table class="c-leaderboard__averages">
         <thead>
         <tr>
           <th>Mean</th>
+          <th>&nbsp;</th>
           <th>Median</th>
         </tr>
         </thead>
         <tbody class="js-leaderboard__averages">
         <tr class="c-leaderboard__average">
           <td class="js-leaderboard__mean c-leaderboard__mean"></td>
+          <td class="c-leaderboard__mean c-leaderboard__median">&nbsp;</td>
           <td class="js-leaderboard__median c-leaderboard__median"></td>
         </tr>
         </tbody>
       </table>
-      <table>
+      <table class="c-leaderboard__entries">
         <thead>
         <tr>
           <th colspan="2">Player</th>
